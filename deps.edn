@@ -1,0 +1,42 @@
+{:paths ["src" "test" "target/classes"],
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        clj-http/clj-http {:mvn/version "3.12.3"}
+        cheshire/cheshire {:mvn/version "5.11.0"}}
+ :aliases {
+           ;; Development environment
+           :env/dev {:extra-paths ["dev" "test"]
+                     :jvm-opts ["-Dconfig=resources/dev/config.edn"]},
+
+           ;; Production environment
+           :env/prod {:main-opts ["-m" "warmer.main"]
+                      :jvm-opts ["-Dconfig=resources/prod/config.edn"]}
+
+           ;; Testing environment
+           :env/test {:extra-paths ["dev" "test"],
+                      :jvm-opts ["-Dconfig=resources/test/config.edn"]}
+
+           ;; Test runner
+           :run/tests {:extra-deps {io.github.cognitect-labs/test-runner
+                                    {:git/tag "v0.5.1"
+                                     :git/sha "dfb30dd"}}
+                       :main-opts ["-m" "cognitect.test-runner"]
+                       :exec-fn cognitect.test-runner.api/test
+                       :exec-args {:patterns [".*test$"]}}
+
+           ;; Native REPL server
+           :run/repl-server {:exec-fn clojure.core.server/start-server,
+                             :exec-args
+                             {:name "repl-server",
+                              :address "0.0.0.0",
+                              :port 55555,
+                              :accept clojure.core.server/repl,
+                              :bind-err true,
+                              :server-daemon false,
+                              :client-daemon false}}
+           ;; nREPL options
+           :nREPL
+           {:extra-deps
+            {nrepl/nrepl {:mvn/version "1.0.0"}
+             integrant/repl {:mvn/version "0.3.1"}}}
+           :reply
+           {:deps {reply/reply {:mvn/version "0.5.0"}}}}}
