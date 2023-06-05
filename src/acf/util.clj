@@ -2,10 +2,17 @@
   (:refer-clojure :exclude [replace])
   (:require [clj-http.client :as http]
             [clj-http.util :as http.util]
-            [acf.sec :as sec]
             [acf.digest :as digest]
             [acf.helpers :refer :all]
-            [clojure.string :refer [replace split]]))
+            [clojure.string :refer [replace split]])
+  (:import (java.security SecureRandom)))
+
+(defn random-bytes
+  "Returns a random byte array of the specified size."
+  [size]
+  (let [seed (byte-array size)]
+    (.nextBytes (SecureRandom/getInstance "SHA1PRNG") seed)
+    seed))
 
 (defn content-type
   "Returns the content type of `response`."
@@ -47,7 +54,7 @@
   "Return base64 encoded `value` string, safe for url usage."
   [value]
   (-> value
-      http.util/base64-encode
+      (http.util/base64-encode)
       (replace "/" "_")
       (replace "+" "-")))
 
@@ -55,16 +62,16 @@
   "Return random code verifier."
   []
   (-> 30
-      sec/random-bytes
-      encode-base64-url-safe
+      (random-bytes)
+      (encode-base64-url-safe)
       (replace #"[^a-zA-Z0-9]+" "")))
 
 (defn code-challenge
   "Build a challenge code using the `verifier`."
   [verifier]
   (-> verifier
-      digest/sha256
-      encode-base64-url-safe
+      (digest/sha256)
+      (encode-base64-url-safe)
       (replace "=" "")))
 
 (defn wrap-content-type
