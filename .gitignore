@@ -1,0 +1,118 @@
+# Cmake build folder
+build
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+*.core
+*.data
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# python precompiled files
+*.pyc
+
+# python dirs
+venv
+dist
+htmlcov
+instance
+.pytest_cache
+.coverage
+*.egg-info
+__pycache__
+
+# OS generated files
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+*.lock
+package-lock.json
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# projectile
+.projectile
+
+# elisp
+*-autoloads.el
+.dir-locals.el
+
+# Etags
+TAGS
+
+# Gtags
+GPATH
+GRTAGS
+GTAGS
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# Flymake-mode
+*_flymake.*
+
+# reftex files
+*.rel
+
+# Editorconfig
+.editorconfig
+
+# Directories
+.backup
+
+# Clojure
+/target
+/classes
+/checkouts
+profiles.clj
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+/.prepl-port
+.hgignore
+.hg/
+.idea/
+.clj-kondo/.cache/
+.cpcache
+.m2
+
+# Java
+src-java/*.log
